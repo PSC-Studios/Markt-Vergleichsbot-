@@ -8,9 +8,16 @@ import cron from "node-cron";
 const MAX_DIFF = 20; // % Abweichung
 
 const ITEMS = [
-  { material: "DIAMOND", buy: 120, sell: 150 },
-  { material: "IRON_INGOT", buy: 35, sell: 55 },
-  { material: "GOLD_INGOT", buy: 80, sell: 110 }
+  { 
+    material: "DIAMOND", 
+    yourBuy: 120,     // dein Ankaufspreis im Shop
+    yourSell: 150     // dein Verkaufspreis im Shop
+  },
+  { 
+    material: "IRON_INGOT", 
+    yourBuy: 35, 
+    yourSell: 55 
+  }
 ];
 
 // OPTIONAL (Discord)
