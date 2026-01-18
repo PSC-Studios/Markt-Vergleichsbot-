@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<title>OPSucht Preisübersicht</title>
+<style>
+  body { font-family: Arial; background: #0f172a; color: #e5e7eb; padding: 20px; }
+  h1 { color: #38bdf8; }
+  table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  th, td { padding: 10px; border-bottom: 1px solid #1e293b; text-align: center; }
+  th { color: #7dd3fc; }
+  .ok { background: #14532d; color: #bbf7d0; font-weight: bold; }
+  .warn { background: #7f1d1d; color: #fecaca; font-weight: bold; }
+  .error { background: #3f3f3f; color: #fcd34d; font-weight: bold; }
+</style>
+</head>
+<body>
+<h1>OPSucht – Live Preisübersicht</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Dein Ankauf</th>
+      <th>Markt Ankauf</th>
+      <th>Dein Verkauf</th>
+      <th>Markt Verkauf</th>
+      <th>Abweichung (%)</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody id="table"></tbody>
+</table>
+
+<script>
+async function loadItems() {
+  const res = await fetch("http://localhost:3000/api/items");
+  const data = await res.json();
+  const tbody = document.getElementById("table");
+  tbody.innerHTML = "";
+
+  data.forEach(item => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${item.material}</td>
+      <td>${item.yourBuy}</td>
+      <td>${item.marketBuy}</td>
+      <td>${item.yourSell}</td>
+      <td>${item.marketSell}</td>
+      <td>${item.diff}</td>
+      <td class="${item.status}">${item.status.toUpperCase()}</td>
+    `;
+    tbody.appendChild(row);
+  });
+}
+
+// alle 1 Minute aktualisieren
+loadItems();
+setInterval(loadItems, 60000);
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "opsucht-preisbot",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "node-cron": "^3.0.3"
+  }
+}
